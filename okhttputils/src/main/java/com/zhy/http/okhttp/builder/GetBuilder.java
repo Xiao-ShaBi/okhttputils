@@ -12,31 +12,27 @@ import java.util.Set;
 
 /**
  * Created by zhy on 15/12/14.
+ * 这也是一个请求体，从名字看，是一个get的请求体
  */
-public class GetBuilder extends OkHttpRequestBuilder<GetBuilder> implements HasParamsable
-{
+public class GetBuilder extends OkHttpRequestBuilder<GetBuilder> implements HasParamsable {
     @Override
-    public RequestCall build()
-    {
-        if (params != null)
-        {
+    public RequestCall build() {
+        if (params != null) {
             url = appendParams(url, params);
         }
 
-        return new GetRequest(url, tag, params, headers,id).build();
+        return new GetRequest(url, tag, params, headers, id).build();
     }
 
-    protected String appendParams(String url, Map<String, String> params)
-    {
-        if (url == null || params == null || params.isEmpty())
-        {
+    ////// TODO: 2017/4/27 看到这里了 
+    protected String appendParams(String url, Map<String, String> params) {
+        if (url == null || params == null || params.isEmpty()) {
             return url;
         }
         Uri.Builder builder = Uri.parse(url).buildUpon();
         Set<String> keys = params.keySet();
         Iterator<String> iterator = keys.iterator();
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
             String key = iterator.next();
             builder.appendQueryParameter(key, params.get(key));
         }
@@ -44,18 +40,28 @@ public class GetBuilder extends OkHttpRequestBuilder<GetBuilder> implements HasP
     }
 
 
+    /**
+     * 添加参数
+     *
+     * @param params
+     * @return
+     */
     @Override
-    public GetBuilder params(Map<String, String> params)
-    {
+    public GetBuilder params(Map<String, String> params) {
         this.params = params;
         return this;
     }
 
+    /**
+     * 将添加的key value封装为param
+     *
+     * @param key
+     * @param val
+     * @return
+     */
     @Override
-    public GetBuilder addParams(String key, String val)
-    {
-        if (this.params == null)
-        {
+    public GetBuilder addParams(String key, String val) {
+        if (this.params == null) {
             params = new LinkedHashMap<>();
         }
         params.put(key, val);
