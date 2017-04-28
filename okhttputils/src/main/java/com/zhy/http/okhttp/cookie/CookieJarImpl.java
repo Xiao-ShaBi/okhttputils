@@ -34,6 +34,11 @@ public class CookieJarImpl implements CookieJar
         cookieStore.add(url, cookies);
     }
 
+    /**
+     * 根据url返回当前url下所有的cookie
+     * @param url
+     * @return
+     */
     @Override
     public synchronized List<Cookie> loadForRequest(HttpUrl url)
     {
