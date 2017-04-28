@@ -6,7 +6,7 @@ import com.zhy.http.okhttp.request.RequestCall;
 import okhttp3.RequestBody;
 
 /**
- * DELETE、PUT、PATCH等其他方法
+ * DELETE、PUT、PATCH/HEAD等其他方法请求体
  */
 public class OtherRequestBuilder extends OkHttpRequestBuilder<OtherRequestBuilder>
 {

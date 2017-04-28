@@ -13,6 +13,7 @@ import java.util.Set;
 /**
  * Created by zhy on 15/12/14.
  * 这也是一个请求体，从名字看，是一个get的请求体
+ * 将post请求的参数封装进get请求的url之中
  */
 public class GetBuilder extends OkHttpRequestBuilder<GetBuilder> implements HasParamsable {
     @Override
@@ -24,7 +25,7 @@ public class GetBuilder extends OkHttpRequestBuilder<GetBuilder> implements HasP
         return new GetRequest(url, tag, params, headers, id).build();
     }
 
-    ////// TODO: 2017/4/27 看到这里了 
+    //将请求体放入build中，并转化为字符串
     protected String appendParams(String url, Map<String, String> params) {
         if (url == null || params == null || params.isEmpty()) {
             return url;

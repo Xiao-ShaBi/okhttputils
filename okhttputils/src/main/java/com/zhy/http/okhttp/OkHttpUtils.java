@@ -78,6 +78,12 @@ public class OkHttpUtils {
         return mOkHttpClient;
     }
 
+    /**
+     * 创建一个getbuilder
+     * 看名字像是处理get请求体的,貌似是用统一的请求方式，根据请求方式不同将参数转化
+     *
+     * @return
+     */
     public static GetBuilder get() {
         return new GetBuilder();
     }
@@ -90,10 +96,20 @@ public class OkHttpUtils {
         return new PostFileBuilder();
     }
 
+    /**
+     * 表单请求
+     *
+     * @return
+     */
     public static PostFormBuilder post() {
         return new PostFormBuilder();
     }
 
+    /**
+     * 下边的几个请求都使用otherrequest做为统一的请求体，没有再做封装
+     * 需要自己封装
+     * head封装做了单独处理，传的参数不同
+     */
     public static OtherRequestBuilder put() {
         return new OtherRequestBuilder(METHOD.PUT);
     }
@@ -110,18 +126,32 @@ public class OkHttpUtils {
         return new OtherRequestBuilder(METHOD.PATCH);
     }
 
+    /**
+     * 执行联网请求请求
+     *
+     * @param requestCall 请求体，将okhttp的请求体进行了封装，提供更多的对外接口
+     * @param callback    请求返回
+     */
     public void execute(final RequestCall requestCall, Callback callback) {
         if (callback == null)
             callback = Callback.CALLBACK_DEFAULT;
         final Callback finalCallback = callback;
         final int id = requestCall.getOkHttpRequest().getId();
 
+        /**
+         * 调用okhttp的call方法
+         */
         requestCall.getCall().enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 sendFailResultCallback(call, e, finalCallback, id);
             }
 
+            /**
+             * 请求返回，其中判断是否被取消，返回参数是否为成功
+             * @param call
+             * @param response
+             */
             @Override
             public void onResponse(final Call call, final Response response) {
                 try {
@@ -172,6 +202,10 @@ public class OkHttpUtils {
         });
     }
 
+    /**
+     * 根据tag取消当前请求和正在请求的联网
+     * @param tag
+     */
     public void cancelTag(Object tag) {
         for (Call call : mOkHttpClient.dispatcher().queuedCalls()) {
             if (tag.equals(call.request().tag())) {
