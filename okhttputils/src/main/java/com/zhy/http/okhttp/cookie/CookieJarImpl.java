@@ -11,6 +11,7 @@ import okhttp3.HttpUrl;
 
 /**
  * Created by zhy on 16/3/10.
+ * cookie
  */
 public class CookieJarImpl implements CookieJar
 {
@@ -22,6 +23,11 @@ public class CookieJarImpl implements CookieJar
         this.cookieStore = cookieStore;
     }
 
+    /**
+     * 根据响应保存cookies
+     * @param url
+     * @param cookies
+     */
     @Override
     public synchronized void saveFromResponse(HttpUrl url, List<Cookie> cookies)
     {

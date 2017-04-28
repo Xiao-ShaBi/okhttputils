@@ -5,6 +5,9 @@ import java.util.List;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 
+/**
+ * cookie存储的接口
+ */
 public interface CookieStore
 {
 
