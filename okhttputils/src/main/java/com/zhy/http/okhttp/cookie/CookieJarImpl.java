@@ -11,7 +11,7 @@ import okhttp3.HttpUrl;
 
 /**
  * Created by zhy on 16/3/10.
- * cookie
+ * cookie 保存
  */
 public class CookieJarImpl implements CookieJar
 {
